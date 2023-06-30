@@ -23,16 +23,11 @@ pipeline{
             steps {
                 echo "Building jar"
                 sh 'mvn clean package deploy'
-                echo "executin pipeline for branch= ${env.BRANCH_NAME}"
+                echo "executing pipeline"
             }
         }
 
         stage('Build docker image') {
-            when {
-                    expression {
-                        ${env.BRANCH_NAME} == 'master'
-                    }
-                }
             steps {
                 echo "Building docker image"
                 sh "docker build -t 10.0.0.174:8083/java-maven:v3.1 ."
@@ -40,15 +35,8 @@ pipeline{
                 sh "docker push 10.0.0.174:8083/java-maven:v3.1"
             }
         }
-
+        /* 
         stage('Build when not master') {
-            when {
-                expression {
-                    not {
-                       ${env.BRANCH_NAME} == 'master'
-                    }
-                }
-            }
              steps {
                 echo "Building docker image"
                 sh "docker build -t sanjeetkr/web-app:v1.1 ."
@@ -57,14 +45,9 @@ pipeline{
             }
         }
 
-
+        */
 
         stage('Deploy the image') {
-            when {
-                    expression {
-                        ${env.BRANCH_NAME} == 'master'
-                    }
-                }
             steps {
                 echo "Deployment phase"
             }
