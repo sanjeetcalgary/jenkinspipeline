@@ -29,12 +29,12 @@ pipeline{
 
         stage('Build docker image') {
             when {
-                    branch 'master'
+                    ${env.BRANCH_NAME} == 'master'
                 }
             steps {
                 echo "Building docker image"
                 sh "docker build -t 10.0.0.174:8083/java-maven:v3.1 ."
-                sh "docker login -u $DOCKER_USER -p $NEXUS_PWD 10.0.0.174:8083"
+                sh "docker login -u $NEXUS_USER -p $NEXUS_PWD 10.0.0.174:8083"
                 sh "docker push 10.0.0.174:8083/java-maven:v3.1"
             }
         }
@@ -42,13 +42,13 @@ pipeline{
         stage('Build when not master') {
             when {
                 not {
-                       branch 'master'
+                       ${env.BRANCH_NAME} == 'master'
                 }
             }
              steps {
                 echo "Building docker image"
                 sh "docker build -t sanjeetkr/web-app:v1.1 ."
-                sh "docker login -u $NEXUS_USER -p $DOCKER_PASSWORD"
+                sh "docker login -u $DOCKER_USER -p $DOCKER_PASSWORD"
                 sh "docker push sanjeetkr/web-app:v1.1"
             }
         }
@@ -57,10 +57,8 @@ pipeline{
 
         stage('Deploy the image') {
             when {
-                expression {
-                    env.BRANCH_NAME == 'master'
+                    ${env.BRANCH_NAME} == 'master'
                 }
-            }
             steps {
                 echo "Deployment phase"
             }
