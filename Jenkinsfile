@@ -22,18 +22,10 @@ pipeline{
         stage('Build jar file') {
             steps {
                 echo "Building jar"
-                sh 'mvn clean package'
+                sh 'mvn clean package deploy'
                 echo "executin pipeline for branch= $BRANCH_NAME"
             }
         }
-
-        stage('Deploy jar to nexus repository'){
-            steps {
-                echo "Deploying snapshot to nexus"
-                sh 'mvn deploy'
-            }
-        }
-
 
         stage('Build docker image') {
             when {
@@ -44,7 +36,7 @@ pipeline{
             steps {
                 echo "Building docker image"
                 sh "docker build -t 10.0.0.174:8083/java-maven:v3.1 ."
-                sh "docker login -u $DOCKER_USER -p $NEXUS_PWD"
+                sh "docker login -u $DOCKER_USER -p $NEXUS_PWD 10.0.0.174:8083"
                 sh "docker push 10.0.0.174:8083/java-maven:v3.1"
             }
         }
