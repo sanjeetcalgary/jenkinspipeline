@@ -23,13 +23,13 @@ pipeline{
             steps {
                 echo "Building jar"
                 sh 'mvn clean package deploy'
-                echo "executin pipeline for branch= $env.BRANCH_NAME"
+                echo "executin pipeline for branch= ${env.BRANCH_NAME}"
             }
         }
 
         stage('Build docker image') {
             when {
-                    ${env.BRANCH_NAME} == 'master'
+                    $env.BRANCH_NAME == 'master'
                 }
             steps {
                 echo "Building docker image"
@@ -42,7 +42,7 @@ pipeline{
         stage('Build when not master') {
             when {
                 not {
-                       ${env.BRANCH_NAME} == 'master'
+                       $env.BRANCH_NAME == 'master'
                 }
             }
              steps {
