@@ -31,7 +31,6 @@ pipeline{
             when {
                     branch 'master'
                 }
-            }
             steps {
                 echo "Building docker image"
                 sh "docker build -t 10.0.0.174:8083/java-maven:v3.1 ."
