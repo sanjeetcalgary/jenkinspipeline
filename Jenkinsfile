@@ -23,7 +23,7 @@ pipeline{
             steps {
                 echo "Building jar"
                 sh 'mvn clean package deploy'
-                echo "executin pipeline for branch= $BRANCH_NAME"
+                echo "executin pipeline for branch= $env.BRANCH_NAME"
             }
         }
 
@@ -58,7 +58,7 @@ pipeline{
         stage('Deploy the image') {
             when {
                 expression {
-                    BRANCH_NAME == 'master'
+                    env.BRANCH_NAME 'master'
                 }
             }
             steps {
