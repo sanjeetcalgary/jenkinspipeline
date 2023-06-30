@@ -51,8 +51,8 @@ pipeline{
 
         stage('Build when not master') {
             when {
-                not {
-                        BRANCH_NAME == 'master'
+                expression {
+                       not BRANCH_NAME == 'master'
                 }
             }
              steps {
