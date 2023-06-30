@@ -29,7 +29,9 @@ pipeline{
 
         stage('Build docker image') {
             when {
-                    $env.BRANCH_NAME == 'master'
+                    expression {
+                        env.BRANCH_NAME == 'master'
+                    }
                 }
             steps {
                 echo "Building docker image"
@@ -41,8 +43,10 @@ pipeline{
 
         stage('Build when not master') {
             when {
-                not {
-                       $env.BRANCH_NAME == 'master'
+                expression {
+                    not {
+                       env.BRANCH_NAME == 'master'
+                    }
                 }
             }
              steps {
@@ -57,7 +61,9 @@ pipeline{
 
         stage('Deploy the image') {
             when {
-                    ${env.BRANCH_NAME} == 'master'
+                    expression {
+                        $env.BRANCH_NAME == 'master'
+                    }
                 }
             steps {
                 echo "Deployment phase"
