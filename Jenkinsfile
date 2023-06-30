@@ -47,6 +47,9 @@ pipeline{
                 sh "docker login -u $DOCKER_USER -p $NEXUS_PWD"
                 sh "docker push 10.0.0.174:8083/java-maven:v3.1"
             }
+        }
+
+        stage('Build when not master') {
             when {
                 not {
                         BRANCH_NAME == 'master'
@@ -59,6 +62,8 @@ pipeline{
                 sh "docker push sanjeetkr/web-app:v1.1"
             }
         }
+
+
 
         stage('Deploy the image') {
             when {
