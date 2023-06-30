@@ -29,8 +29,7 @@ pipeline{
 
         stage('Build docker image') {
             when {
-                expression {
-                    BRANCH_NAME == 'master'
+                    branch 'master'
                 }
             }
             steps {
@@ -43,8 +42,8 @@ pipeline{
 
         stage('Build when not master') {
             when {
-                expression {
-                       not BRANCH_NAME == 'master'
+                not {
+                       branch 'master'
                 }
             }
              steps {
