@@ -27,6 +27,18 @@ pipeline{
             }
         }
 
+        stage('Publish') {
+            steps {
+                script {
+                    B_NAME = ${env.BRANCH_NAME}
+                    echo "Branch= ${B_NAME}"
+                    echo "Brancht= $(B_NAME)"
+                }
+            }
+        }
+
+
+
         stage('Build docker image') {
             steps {
                 echo "Building docker image"
