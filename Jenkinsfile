@@ -27,15 +27,6 @@ pipeline{
             }
         }
 
-        stage('Publish') {
-            steps {
-                script {
-                    B_NAME = ${env.BRANCH_NAME}
-                    echo "Branch= ${B_NAME}"
-                    
-                }
-            }
-        }
 
 
 
