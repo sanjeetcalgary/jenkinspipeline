@@ -15,7 +15,7 @@ pipeline{
         DOCKER_PASSWORD = credentials('dockerpwd')
         NEXUS_USER = credentials('nexusID')
         NEXUS_PWD = credentials('nexusPwd')
-        VERSION_TAG = "10.0.0.174:8083/java-maven:v1.1.1"
+        VERSION_TAG = "10.0.0.174:8083/java-maven:v1.2.1"
     }
 
     stages {
