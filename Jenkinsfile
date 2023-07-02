@@ -32,7 +32,7 @@ pipeline{
                 script {
                     B_NAME = ${env.BRANCH_NAME}
                     echo "Branch= ${B_NAME}"
-                    echo "Brancht= $(B_NAME)"
+                    
                 }
             }
         }
