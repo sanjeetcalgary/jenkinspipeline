@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine 
-EXPOSE 8090
-COPY ./target/java-maven-app-3.1-SNAPSHOT.jar .
-WORKDIR .
-ENTRYPOINT [ "java","-jar","java-maven-app-3.1-SNAPSHOT.jar" ]
+EXPOSE 8080
+COPY ./target/java-maven-app-*.jar /usr/app/
+WORKDIR /usr/app
+CMD java -jar java-maven-app-*.jar

@@ -15,6 +15,7 @@ pipeline{
         DOCKER_PASSWORD = credentials('dockerpwd')
         NEXUS_USER = credentials('nexusID')
         NEXUS_PWD = credentials('nexusPwd')
+        VERSION_TAG = "10.0.0.174:8083/java-maven:v1.1.1"
     }
 
     stages {
@@ -33,9 +34,9 @@ pipeline{
         stage('Build docker image') {
             steps {
                 echo "Building docker image"
-                sh "docker build -t 10.0.0.174:8083/java-maven:v3.1 ."
+                sh "docker build -t ${VERSION_TAG} ."
                 sh "docker login -u $NEXUS_USER -p $NEXUS_PWD 10.0.0.174:8083"
-                sh "docker push 10.0.0.174:8083/java-maven:v3.1"
+                sh "docker push ${VERSION_TAG}"
             }
         }
         /* 
